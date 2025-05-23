@@ -1,12 +1,25 @@
-# React + Vite
+# Proyecto E-commerce – GameBlades
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Fase 2 Semana 2 
 
-Currently, two official plugins are available:
+ Estructura de carpetas organizada  
+ Componentes reutilizables creados  
+ Rutas funcionando con React Router  
+ Imagenes reales y descripciones de productos  
+ 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Como correr el proyecto
 
-## Expanding the ESLint configuration
+``bash
+npm install
+npm run dev
+Abre el navegador en http://localhost:5173/.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Espadas incluidas:
+
+Master Sword – The Legend of Zelda
+Crucible – DOOM Eternal
+Saw Cleaver – Bloodborne
+
+
