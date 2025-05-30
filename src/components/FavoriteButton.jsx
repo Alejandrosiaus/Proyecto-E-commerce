@@ -1,14 +1,30 @@
-import { useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-const FavoriteButton = () => {
-  const liked = useRef(false);
+const FavoriteButton = ({ productId, favoritesRef, updateFavorites }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  const toggle = () => {
-    liked.current = !liked.current;
-    alert(liked.current ? 'Guardado' : 'Eliminado');
+  useEffect(() => {
+    setIsFavorite(favoritesRef.current.includes(productId));
+  }, [productId, favoritesRef]);
+
+  const toggleFavorite = () => {
+    if (favoritesRef.current.includes(productId)) {
+      favoritesRef.current = favoritesRef.current.filter((id) => id !== productId);
+      setIsFavorite(false);
+    } else {
+      favoritesRef.current.push(productId);
+      setIsFavorite(true);
+    }
+
+    updateFavorites();
+    console.log('Historial actual de favoritos:', favoritesRef.current);
   };
 
-  return <button onClick={toggle}>❤️ Favorito</button>;
+  return (
+    <button onClick={toggleFavorite}>
+      {isFavorite ? '💔 Quitar de favoritos' : '❤️ Agregar a favoritos'}
+    </button>
+  );
 };
 
 export default FavoriteButton;

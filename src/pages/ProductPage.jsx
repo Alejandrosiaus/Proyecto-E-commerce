@@ -1,34 +1,38 @@
+import { products } from '../data/products';
 import ProductList from '../components/ProductList';
-import sword1 from '../assets/sword1.png';
-import sword2 from '../assets/sword2.png';
-import sword3 from '../assets/sword3.png';
+import { useRef, useState } from 'react';
+import './ProductPage.css'; 
 
-const dummyProducts = [
-  {
-    id: 1,
-    name: 'Master Sword',
-    price: 299.99,
-    image: sword1
-  },
-  {
-    id: 2,
-    name: 'Crucible',
-    price: 349.99,
-    image: sword2
-  },
-  {
-    id: 3,
-    name: 'Saw Cleaver',
-    price: 269.99,
-    image: sword3
-  }
-];
 
-const ProductPage = () => (
-  <div>
-    <h1>Catálogo de Espadas</h1>
-    <ProductList products={dummyProducts} />
-  </div>
-);
+
+const ProductPage = () => {
+  const favorites = useRef([]);
+  const [, forceUpdate] = useState(0);
+
+  const updateFavorites = () => {
+    forceUpdate((n) => n + 1);
+  };
+
+  return (
+    <div className="product-page">
+      <p className="favorites-count">Favoritos marcados: {favorites.current.length}</p>
+      <div className="intro">
+      <h2>Bienvenido a GameBlades</h2>
+      <p>
+        En nuestras forjas nos dedicamos a crear las espadas mas legendarias del mundo de los videojuegos, trayendo tus sueños de ser un espadachin legendario a la realidad. <br />
+        Desde reinos de fantasia hasta mundos distopicos, aqui encontraras replicas reales de tus armas favoritas, forjadas con precision y pasion <br />
+        ¡Consigue con tu espada ideal y conviertete en el herore que estas destinado a ser!
+      </p>
+      </div>
+      <h1>Catálogo de Espadas</h1>
+      <ProductList
+        products={products}
+        favoritesRef={favorites}
+        updateFavorites={updateFavorites}
+      />
+    </div>
+
+  );
+};
 
 export default ProductPage;

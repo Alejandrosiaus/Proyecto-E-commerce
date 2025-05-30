@@ -1,49 +1,85 @@
 import { useParams } from 'react-router-dom';
-import sword1 from '../assets/sword1.png';
-import sword2 from '../assets/sword2.png';
-import sword3 from '../assets/sword3.png';
+import { useContext, useEffect, useMemo } from 'react';
+import { CartContext } from '../contexts/CartContext';
+import { products } from '../data/products';
+import { visitedIds } from '../data/visited';
+import Navbar from '../components/Navbar';
 
-const products = [
-  {
-    id: 1,
-    name: 'Master Sword',
-    price: 299.99,
-    image: sword1,
-    description: 'La legendaria espada de Link, imbuida con poder sagrado para derrotar el mal en Hyrule.'
-  },
-  {
-    id: 2,
-    name: 'Crucible',
-    price: 349.99,
-    image: sword2,
-    description: 'La poderosa espada de DOOM Eternal, capaz de destruir demonios con un solo corte.'
-  },
-  {
-    id: 3,
-    name: 'Saw Cleaver',
-    price: 269.99,
-    image: sword3,
-    description: 'Una brutal arma de Bloodborne, ideal para combates cuerpo a cuerpo en Yharnam.'
-  }
-];
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === Number(id));
+  const { addToCart } = useContext(CartContext);
+  const productId = Number(id);
 
-  if (!product) {
-    return <p>Producto no encontrado</p>;
-  }
+  const product = products.find((p) => p.id === productId);
+
+  // Guardar producto visitado globalmente
+  useEffect(() => {
+    if (product) {
+      visitedIds.add(product.id);
+    }
+  }, [product]);
+
+  const recommendations = useMemo(() => {
+    if (!product) return [];
+
+    // Buscar productos de la misma franquicia no visitados
+    const sameFranchise = products.filter(
+      (p) =>
+        p.id !== product.id &&
+        p.franchise === product.franchise &&
+        !visitedIds.has(p.id)
+    );
+
+    if (sameFranchise.length > 0) return sameFranchise.slice(0, 3);
+
+    // Si no hay más de la misma franquicia, recomendar otros no visitados
+    const other = products.filter(
+      (p) =>
+        p.id !== product.id &&
+        !visitedIds.has(p.id)
+    );
+
+    return other.slice(0, 3);
+  }, [product]);
+
+  if (!product) return <p>Producto no encontrado</p>;
 
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <img src={product.image} alt={product.name} width="200" />
-      <p>{product.description}</p>
-      <p>Precio: ${product.price}</p>
-      <button>Agregar al carrito</button>
+  <div className="product-container">
+    <h1>{product.name}</h1>
+    <div className="rating">
+  {[1, 2, 3, 4, 5].map((star) => (
+    <span key={star}>
+      {star <= product.rating ? '★' : '☆'}
+    </span>
+  ))}
+</div>
+
+    <img src={product.image} alt={product.name} width="200" />
+    <p>{product.description}</p>
+
+    {product.oldPrice && (
+      <p style={{ textDecoration: 'line-through', color: '#94a3b8' }}>${product.oldPrice}</p>
+    )}
+    <p style={{ fontSize: '18px' }}>Precio: ${product.price}</p>
+    <button onClick={() => addToCart(product)}>Agregar al carrito</button>
+
+    <hr />
+    <h2>Recomendaciones</h2>
+    {recommendations.length === 0 && <p>No hay más productos por recomendar.</p>}
+    <div className="recommendations">
+      {recommendations.map((rec) => (
+        <div className="card" key={rec.id}>
+          <p>{rec.name}</p>
+          <img src={rec.image} alt={rec.name} width="100" />
+          <p>${rec.price}</p>
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
+
 };
 
 export default ProductDetailPage;

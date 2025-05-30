@@ -1,23 +1,49 @@
-import CartItem from '../components/CartItem';
-import sword1 from '../assets/sword1.png';
-import sword2 from '../assets/sword2.png';
-import sword3 from '../assets/sword3.png';
-
-const dummyCart = [
-  { id: 1, name: 'Master Sword', price: 299.99, quantity: 1, image: sword1 },
-];
+import { useContext, useMemo } from 'react';
+import { CartContext } from '../contexts/CartContext';
+import Navbar from '../components/Navbar';
+import './CartPage.css';
 
 const CartPage = () => {
+  const { cart, clearCart, increaseQty, decreaseQty } = useContext(CartContext);
+
+  const total = useMemo(() => {
+    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  }, [cart]);
+
+  const handleBuy = () => {
+    alert('¡Gracias por tu compra!');
+    clearCart();
+  };
+
   return (
-    <div>
-      <h1>Tu Carrito</h1>
-      {dummyCart.map((item) => (
-        <CartItem key={item.id} {...item} />
-      ))}
-      <p>Total: $299.99</p>
-      <button>Vaciar carrito</button>
-      <button>Comprar</button>
-    </div>
+    <>
+      <div className="cart-page">
+        <h1>Tu Carrito</h1>
+        <div className="cart-summary">
+          <p>Total: ${total.toFixed(2)}</p>
+          {total > 999.99 && <p style={{ color: 'red' }}>ERROR: El total supera $999.99</p>}
+          <div>
+            <button onClick={clearCart}>Vaciar carrito</button>
+            <button onClick={handleBuy}>Comprar</button>
+          </div>
+        </div>
+
+        <div className="cart-items">
+          {cart.map((item) => (
+            <div key={item.id} className="cart-card">
+              <img src={item.image} alt={item.name} />
+              <h3>{item.name}</h3>
+              <p>Precio: ${item.price}</p>
+              <p>Cantidad: {item.quantity}</p>
+              <div>
+                <button onClick={() => increaseQty(item.id)}>+</button>
+                <button onClick={() => decreaseQty(item.id)}>-</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 
