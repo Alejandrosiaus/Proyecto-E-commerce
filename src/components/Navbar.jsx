@@ -4,9 +4,9 @@ import './Navbar.css';
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">GameBlades</Link>
+      <Link to="/" className="metal-title">GameBlades</Link>
       <div className="nav-links">
-        <Link to="/carrito" className="cart-link">🛒 Carrito</Link>
+        <Link to="/carrito" className="cart-link">🛒 Carrito                    i                                  .</Link>
       </div>
     </nav>
   );

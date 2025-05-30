@@ -17,14 +17,14 @@ const ProductPage = () => {
     <div className="product-page">
       <p className="favorites-count">Favoritos marcados: {favorites.current.length}</p>
       <div className="intro">
-      <h2>Bienvenido a GameBlades</h2>
+      <h2 className="metal-title">Bienvenido a GameBlades</h2>
       <p>
         En nuestras forjas nos dedicamos a crear las espadas mas legendarias del mundo de los videojuegos, trayendo tus sueños de ser un espadachin legendario a la realidad. <br />
         Desde reinos de fantasia hasta mundos distopicos, aqui encontraras replicas reales de tus armas favoritas, forjadas con precision y pasion <br />
         ¡Consigue con tu espada ideal y conviertete en el herore que estas destinado a ser!
       </p>
       </div>
-      <h1>Catálogo de Espadas</h1>
+      <h1 className="metal-title">Catálogo de espadas</h1>
       <ProductList
         products={products}
         favoritesRef={favorites}

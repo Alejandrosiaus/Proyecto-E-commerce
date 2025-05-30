@@ -2,7 +2,7 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 32px;
-  background-color: #1e293b;
+  background-color: rgba(40, 40, 40, 0.85); /* semi transparente */
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0,0,0,0.3);
 }
@@ -24,7 +24,7 @@
 }
 
 .cart-card {
-  background-color: #334155;
+  background-color: rgba(40, 40, 40, 0.85); /* semi transparente */
   padding: 16px;
   border-radius: 8px;
   width: 220px;

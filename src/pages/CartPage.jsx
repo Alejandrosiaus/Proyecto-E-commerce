@@ -18,7 +18,7 @@ const CartPage = () => {
   return (
     <>
       <div className="cart-page">
-        <h1>Tu Carrito</h1>
+        <h2 className="metal-title">Tu carrito</h2>
         <div className="cart-summary">
           <p>Total: ${total.toFixed(2)}</p>
           {total > 999.99 && <p style={{ color: 'red' }}>ERROR: El total supera $999.99</p>}

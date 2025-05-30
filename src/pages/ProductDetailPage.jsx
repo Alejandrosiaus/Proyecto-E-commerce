@@ -47,7 +47,7 @@ const ProductDetailPage = () => {
 
   return (
   <div className="product-container">
-    <h1>{product.name}</h1>
+    <h1 className="metal-title">{product.name}</h1>
     <div className="rating">
   {[1, 2, 3, 4, 5].map((star) => (
     <span key={star}>
@@ -66,7 +66,7 @@ const ProductDetailPage = () => {
     <button onClick={() => addToCart(product)}>Agregar al carrito</button>
 
     <hr />
-    <h2>Recomendaciones</h2>
+    <h2 className="metal-title">Recomendaciones</h2>
     {recommendations.length === 0 && <p>No hay más productos por recomendar.</p>}
     <div className="recommendations">
       {recommendations.map((rec) => (
