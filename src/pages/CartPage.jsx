@@ -11,9 +11,15 @@ const CartPage = () => {
   }, [cart]);
 
   const handleBuy = () => {
-    alert('¡Gracias por tu compra!');
+    if (total > 999.99) {
+      alert('Error: El total del carrito supera los $999.99. Elimina productos antes de comprar.');
+      return;
+    }
+
+    alert('Gracias por tu compra!');
     clearCart();
   };
+
 
   return (
     <>
@@ -21,7 +27,12 @@ const CartPage = () => {
         <h2 className="metal-title">Tu carrito</h2>
         <div className="cart-summary">
           <p>Total: ${total.toFixed(2)}</p>
-          {total > 999.99 && <p style={{ color: 'red' }}>ERROR: El total supera $999.99</p>}
+          {total > 999.99 && (
+            <p style={{ color: 'red', fontWeight: 'bold' }}>
+               ❌ Error: El total del carrito supera el límite permitido de $999.99. Elimina algún producto para continuar con la compra.
+            </p>
+          )}
+
           <div>
             <button onClick={clearCart}>Vaciar carrito</button>
             <button onClick={handleBuy}>Comprar</button>
